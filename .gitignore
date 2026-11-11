@@ -1,0 +1,9 @@
+﻿venv/
+__pycache__/
+*.pyc
+.env
+mlruns/
+models/*.joblib
+reports/*.html
+data/*.csv
+.ipynb_checkpoints/
