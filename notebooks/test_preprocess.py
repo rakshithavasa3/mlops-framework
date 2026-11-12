@@ -9,7 +9,7 @@ n = 100
 df = pd.DataFrame({
     "id": range(n),
     "age": np.where(np.arange(n) % 10 == 0, np.nan, np.random.randint(18, 80, n)),
-    "city": np.where(np.arange(n) % 7 == 0, None, np.random.choice(["A", "B", "C"], n)),
+    "city": pd.Series(np.random.choice(["A", "B", "C"], n)).where(np.arange(n) % 7 != 0, np.nan),
     "signup": pd.date_range("2024-01-01", periods=n).astype(str),
     "bought": np.random.randint(0, 2, n),
 })

@@ -1,4 +1,6 @@
 """Dataset profiler: reads a DataFrame and summarises it."""
+import warnings
+
 import numpy as np
 import pandas as pd
 
@@ -20,7 +22,9 @@ def detect_column_types(df: pd.DataFrame) -> dict:
             if len(as_str) == 0:
                 types["categorical"].append(col)
                 continue
-            parsed = pd.to_datetime(as_str, errors="coerce")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                parsed = pd.to_datetime(as_str, errors="coerce")
             if parsed.notna().mean() > 0.9:
                 types["datetime"].append(col)
             elif as_str.nunique() / len(as_str) > 0.5 and as_str.str.len().mean() > 30:

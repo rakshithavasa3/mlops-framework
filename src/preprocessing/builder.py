@@ -1,4 +1,6 @@
 """Build an automatic preprocessing pipeline from a DataFrame."""
+import warnings
+
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -19,7 +21,9 @@ class DateFeatures(BaseEstimator, TransformerMixin):
         X = pd.DataFrame(X, columns=self.columns_)
         out = {}
         for col in X.columns:
-            d = pd.to_datetime(X[col], errors="coerce")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                d = pd.to_datetime(X[col], errors="coerce")
             out[f"{col}_year"] = d.dt.year
             out[f"{col}_month"] = d.dt.month
             out[f"{col}_day"] = d.dt.day
@@ -47,12 +51,12 @@ def build_preprocessor(df: pd.DataFrame, target: str, types: dict):
 
     numeric, categorical, dates = [], [], []
     for col in features:
-        if _is_id_like(df[col]):
+        if col in types["datetime"]:
+            dates.append(col)
+        elif _is_id_like(df[col]):
             notes.append(f"Dropped '{col}': every value is unique (looks like an ID).")
         elif col in types["text"]:
             notes.append(f"Dropped '{col}': free-text column.")
-        elif col in types["datetime"]:
-            dates.append(col)
         elif col in types["numerical"]:
             numeric.append(col)
         else:
