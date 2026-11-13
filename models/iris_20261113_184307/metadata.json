@@ -1,0 +1,21 @@
+{
+  "dataset": "iris",
+  "task": "classification",
+  "target": "target",
+  "best_model": "Random Forest",
+  "feature_columns": [
+    "sepal length (cm)",
+    "sepal width (cm)",
+    "petal length (cm)",
+    "petal width (cm)"
+  ],
+  "classes": [
+    "0",
+    "1",
+    "2"
+  ],
+  "created_at": "2026-11-13T18:43:07",
+  "python": "3.14.5",
+  "sklearn": "1.9.1",
+  "explanation": "The model's predictions are driven mainly by 'petal length (cm)' (46.5%), 'petal width (cm)' (43.9%), 'sepal length (cm)' (7.9%). Together these account for about 98.3% of the total feature impact."
+}
