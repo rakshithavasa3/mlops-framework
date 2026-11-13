@@ -7,3 +7,4 @@ models/*.joblib
 reports/*.html
 data/*.csv
 .ipynb_checkpoints/
+mlflow.db
