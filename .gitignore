@@ -8,3 +8,5 @@ reports/*.html
 data/*.csv
 .ipynb_checkpoints/
 mlflow.db
+models/**/*.joblib
+reports/*.png
